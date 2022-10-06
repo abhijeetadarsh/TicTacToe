@@ -5,12 +5,14 @@ let oTone = new Audio("sounds/oTone.mp3")
 // let win = new Audio("sounds/win.mp3")
 let turn = "X"
 let gameover = false
+let empty_count = 9
 
 
 // Function to change the turn
 const changeTurn = () => {
     turn = (turn === "X") ? "O" : "X"
     document.querySelector(".info").innerHTML = "Turn for " + turn
+    empty_count--
 }
 
 // Function to check for a win
@@ -27,16 +29,20 @@ const checkWin = () => {
     ]
     ways.forEach(a => {
         if (boxes[a[0]].textContent !== "" && boxes[a[0]].textContent === boxes[a[1]].textContent && boxes[a[1]].textContent === boxes[a[2]].textContent) {
-            changeTurn()
-            document.querySelector(".info").innerHTML = turn + " is Winner!"
+            // changeTurn()
+            let temp = (turn === "X") ? "O" : "X"
+            document.querySelector(".info").innerHTML = temp + " is Winner!"
             gameover = true
-            document.getElementById("line").style.display = "block"
-            document.getElementById("line").style.transform = `translate(${a[3]}vw,${a[4]}vw) rotate(${a[5]}deg)`
+            // document.getElementById("line").style.display = "block"
+            // document.getElementById("line").style.transform = `translate(${a[3]}vw,${a[4]}vw) rotate(${a[5]}deg)`
             boxes[a[0]].classList.add("winEffect")
             boxes[a[2]].classList.add("winEffect")
             boxes[a[1]].classList.add("winEffect")
         }
     })
+    if (gameover === false && empty_count === 0) {
+        document.querySelector(".info").innerHTML = "Match Draw!"
+    }
 }
 
 // Function to reset
@@ -49,7 +55,28 @@ const reset = () => {
         element.classList.remove("winEffect")
     })
     document.getElementById("line").style.display = "none"
-    // music.play()
+    empty_count = 9
+// music.play()
+}
+
+// easy bot code
+// changeTurn()
+function easy_bot(){
+    // console.log("<"+empty_count+">")
+    while(turn === "O" && gameover === false && empty_count > 0){
+        let rand_index = Math.floor(Math.random()*9)
+        let rand_box = document.querySelectorAll(".box")[rand_index]
+        // console.log(rand_index)
+        // rand_box.style.color = "red"
+        if (rand_box.textContent === "") {
+            oTone.play()
+            rand_box.textContent = turn
+            changeTurn()
+            checkWin()
+            break
+        }
+        // break
+    }
 }
 
 // Game logic
@@ -57,13 +84,18 @@ const reset = () => {
 let boxes = document.querySelectorAll(".box")
 boxes.forEach(element => {
     element.addEventListener("click", () => {
+        // console.log("<"+empty_count+">")
         if (element.textContent === "" && gameover === false) {
             (turn === "X")? xTone.play(): oTone.play()
             element.textContent = turn
             changeTurn()
             checkWin()
-            // if (gameover === true) {
-            //     win.play()
+            if(document.getElementById("test2").checked === true)
+            {
+                setTimeout(easy_bot, 1700)
+            }
+            // else if (document.getElementById("test3").checked === true) {
+                
             // }
         }
     })

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <nav>
         <ul>
@@ -30,6 +32,16 @@
             <h1>Welcome to Tic Tac Toe</h1>
             <div>
                 <span class="info">Turn for X</span>
+                <form action="#">
+                    <p>
+                        <input type="radio" id="test1" name="radio-group" checked>
+                        <label for="test1">Two Player</label>
+                    </p>
+                    <p>
+                        <input type="radio" id="test2" name="radio-group">
+                        <label for="test2">Single Player (Play with Computer)</label>
+                    </p>
+                </form>
                 <button id="reset">Reset</button>
             </div>
         </div>
@@ -39,4 +51,5 @@
     </footer>
     <script src="script.js"></script>
 </body>
+
 </html>
