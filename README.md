@@ -1,4 +1,5 @@
 # TicTacToe
+Hosted [here](https://abhijeetadarsh.github.io/TicTacToe/)
 
 ## Overview
 This is a classic game of TicTacToe developed using vanilla JavaScript for the game logic, HTML, and CSS.
